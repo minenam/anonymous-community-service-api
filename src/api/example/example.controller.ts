@@ -18,7 +18,7 @@ export class ExampleController {
    * @code writer 작성자명
    * @description API 설명
    *
-   * @POST ("/example")
+   * @POST ('/example')
    *
    * @returns json
    */
