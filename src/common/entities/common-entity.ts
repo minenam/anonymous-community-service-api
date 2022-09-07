@@ -10,7 +10,7 @@ import {
 } from 'typeorm';
 
 /**
- * @code writer 김현균
+ * @code writer 남혜민
  * @description Entity 기본 형태
  */
 export abstract class CommonEntity extends BaseEntity {
@@ -29,18 +29,18 @@ export abstract class CommonEntity extends BaseEntity {
     required: false,
   })
   @CreateDateColumn({
-    type: 'datetime',
+    type: 'timestamp',
     comment: '생성일',
   })
-  createAt: Date;
+  createdAt: Date;
 
   @ApiProperty({
     example: '2022-07-13T04:22:24.489Z',
     description: '수정일',
     required: false,
   })
-  @UpdateDateColumn({ type: 'datetime', comment: '수정일' })
-  updateAt: Date;
+  @UpdateDateColumn({ type: 'timestamp', comment: '수정일' })
+  updatedAt: Date;
 
   @ApiProperty({
     example: '2022-07-13T04:22:24.489Z',
@@ -48,6 +48,6 @@ export abstract class CommonEntity extends BaseEntity {
     required: false,
   })
   @Exclude()
-  @DeleteDateColumn({ type: 'datetime', comment: '삭제일' })
-  deleteAt?: Date | null;
+  @DeleteDateColumn({ type: 'timestamp', comment: '삭제일' })
+  deletedAt?: Date | null;
 }
