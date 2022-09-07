@@ -9,14 +9,14 @@ import { PostEntity } from '../entities/post.entity';
 export class PostInputDto {
   @Length(1, 20)
   @ApiProperty({
-    example: '제목입니다.',
+    example: '제목😀입니다.',
     required: true,
   })
   title: PostEntity['title'];
 
   @Length(1, 200)
   @ApiProperty({
-    example: '본문입니다.',
+    example: '본문★입니다.😀',
     required: true,
   })
   content: PostEntity['content'];
