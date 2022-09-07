@@ -1,4 +1,4 @@
-import { BadRequestException, Body, Controller, Delete, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post, Put } from '@nestjs/common';
+import { BadRequestException, Body, Controller, Delete, Get, HttpException, HttpStatus, Param, ParseIntPipe, Post, Put, Query } from '@nestjs/common';
 import {
   ApiBadRequestResponse,
   ApiOkResponse,
@@ -6,10 +6,14 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { CommonResponse } from '../../common/responses/common.response';
+// import { PageDto } from '../paginate/dto/page.dto';
+// import { PageOptionsDto } from '../paginate/dto/page.option.dto';
 import { PostAPIDocs } from './docs/post.docs';
 import { PasswordParams } from './dtos/passwordParams.dto';
+import { PostDto } from './dtos/post.dto';
 import { PostInputDto } from './dtos/postInput.dto';
 import { PostService } from './post.service';
+// import { ApiPaginatedResponse } from '../paginate/docs/paginate.docs';
 
 @ApiTags('user')
 @Controller('api/posts')
@@ -43,8 +47,8 @@ export class PostController {
   @ApiOperation(PostAPIDocs.GetListOperation())
   @ApiOkResponse(CommonResponse.OkResponse())
   @ApiBadRequestResponse(CommonResponse.BadRequestException())
-  async getPostsList() {
-    return await this.postService.findPostsList();
+  async getPostsList(@Query('take') take: number, @Query('page') page: number) {
+    return await this.postService.findPostsList({ take, page });
   }
 
   /**

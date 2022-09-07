@@ -7,6 +7,7 @@ import { postsListDto } from './dtos/postsList.dto';
 import { PostEntity } from './entities/post.entity';
 import { PasswordParams } from './dtos/passwordParams.dto';
 import * as bcrypt from 'bcrypt';
+import { Pagination, PaginationOptions } from '../paginate';
 
 @Injectable()
 export class PostService {
@@ -34,11 +35,19 @@ export class PostService {
    * @code writer 남혜민
    * @description 게시글 전체 조회 API
    *
+   * @param take 페이지
+   * @param skip 페이지당 개수
+   *
    * @return json array
    */
-  async findPostsList() {
-    const allPostList = await this.postRepository.find();
-    return allPostList.map((post) => new postsListDto(post));
+  public async findPostsList(options: PaginationOptions) {
+    const { take, page } = options;
+    const [results, total] = await this.postRepository.findAndCount({
+      take: take,
+      skip: take * (page - 1),
+      order: { createdAt: 'DESC' },
+    });
+    return results.map((post) => new postsListDto(post));
   }
 
   /**
