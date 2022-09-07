@@ -33,6 +33,6 @@ export class PostEntity extends CommonEntity {
     example: 'paSS123456',
     required: true,
   })
-  @Column({ type: 'varchar', length: 30, nullable: false, comment: '비밀번호' })
+  @Column({ type: 'varchar', length: 200, nullable: false, comment: '비밀번호' })
   password: string;
 }

@@ -6,6 +6,7 @@ import { PostDto } from './dtos/post.dto';
 import { postsListDto } from './dtos/postsList.dto';
 import { PostEntity } from './entities/post.entity';
 import { PasswordParams } from './dtos/passwordParams.dto';
+import * as bcrypt from 'bcrypt';
 
 @Injectable()
 export class PostService {
@@ -23,7 +24,7 @@ export class PostService {
    * @return json
    */
   async createPost(postInputDto: PostInputDto) {
-    // 비밀번호 암호화
+    postInputDto.password = await bcrypt.hash(postInputDto.password, 10);
     const newPost = this.postRepository.create(postInputDto);
     await this.postRepository.save(newPost);
     return newPost;
@@ -66,16 +67,12 @@ export class PostService {
    * @return json
    */
   async update(id: number, postInputDto: PostInputDto) {
-    const { password } = postInputDto;
-    // const password = 비밀번호 해독
-    // if (!previousPost) {
-    //   throw new ForbiddenException('수정 권한이 없습니다.');
-    // }
     const previousPost = await this.postRepository.findOne({ where: { id } });
     if (!previousPost) {
       throw new NotFoundException('해당 게시글이 존재하지 않습니다.');
     }
-    if (password !== previousPost.password) {
+    const validatePassword = await bcrypt.compare(postInputDto.password, previousPost.password);
+    if (!validatePassword) {
       throw new ForbiddenException('게시글 관리 권한이 없습니다.');
     }
     const updatedPostResult = await this.postRepository.save({
@@ -100,7 +97,8 @@ export class PostService {
     if (!post) {
       return new NotFoundException('해당 게시글이 존재하지 않습니다.');
     }
-    if (passwordParams.password !== post.password) {
+    const validatePassword = await bcrypt.compare(passwordParams.password, post.password);
+    if (!validatePassword) {
       throw new ForbiddenException('게시글 관리 권한이 없습니다.');
     }
     return await this.postRepository.delete({ id });

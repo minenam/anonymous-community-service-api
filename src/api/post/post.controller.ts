@@ -21,7 +21,7 @@ export class PostController {
    * @description 게시글 생성 API
    *
    * @POST ('/api/posts')
-   * @param createPostDto
+   * @param postInputDto
    * @returns json
    */
   @Post()
