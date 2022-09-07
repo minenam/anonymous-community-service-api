@@ -6,27 +6,27 @@ import {
   ApiTags,
 } from '@nestjs/swagger';
 import { CommonResponse } from '../../common/responses/common.response';
-import { ExmapleAPIDocs } from './docs/example.docs';
-import { ExampleService } from './example.service';
+import { PostAPIDocs } from './docs/post.docs';
+import { PostService } from './post.service';
 
-@ApiTags('Example')
-@Controller('example')
-export class ExampleController {
-  constructor(private readonly exampleService: ExampleService) {}
+@ApiTags('user')
+@Controller('user')
+export class PostController {
+  constructor(private readonly postService: PostService) {}
 
   /**
    * @code writer 작성자명
    * @description API 설명
    *
-   * @POST ('/example')
+   * @POST ('/user')
    *
    * @returns json
    */
   @Get()
-  @ApiOperation(ExmapleAPIDocs.ExampleOperation())
+  @ApiOperation(PostAPIDocs.usersOperation())
   @ApiOkResponse(CommonResponse.OkResponse())
   @ApiBadRequestResponse(CommonResponse.BadRequestException())
-  async example() {
-    return this.exampleService.example();
+  async user() {
+    return this.postService.user();
   }
 }

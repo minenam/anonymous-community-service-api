@@ -1,13 +1,13 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { ExampleEntity } from './entities/example.entity';
+import { PostEntity } from './entities/post.entity';
 
 @Injectable()
-export class ExampleService {
+export class PostService {
   constructor(
-    @InjectRepository(ExampleEntity)
-    private readonly exampleRepository: Repository<ExampleEntity>,
+    @InjectRepository(PostEntity)
+    private readonly postRepository: Repository<PostEntity>,
   ) {}
 
   /**
@@ -18,7 +18,7 @@ export class ExampleService {
    *
    * @return
    */
-  async example() {
-    return 'Example API!';
+  async user() {
+    return 'user API!';
   }
 }
