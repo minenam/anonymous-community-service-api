@@ -1,7 +1,7 @@
 import { exceptionFormatter } from '../utils/responseFormatter.utils';
 
 /**
- * @code writer 김현균
+ * @code writer 남혜민
  * @description API Docs용 기본 Response
  */
 export class CommonResponse {
@@ -9,6 +9,13 @@ export class CommonResponse {
   static OkResponse() {
     return {
       description: 'Ok',
+    };
+  }
+
+  // 201
+  static CreatedResponse() {
+    return {
+      description: 'Created',
     };
   }
 

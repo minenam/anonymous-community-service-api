@@ -1,7 +1,7 @@
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { ExampleModule } from './api/example/example.module';
+import { PostModule } from './api/post/post.module';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoggerMiddleware } from './common/middleware/logger.middleware';
@@ -19,7 +19,7 @@ import * as Joi from 'joi';
       }),
     }),
     TypeOrmModule.forRootAsync(typeOrmAsyncModuleOptions),
-    ExampleModule,
+    PostModule,
   ],
   controllers: [AppController],
   providers: [AppService],
