@@ -29,7 +29,7 @@ export abstract class CommonEntity extends BaseEntity {
     required: false,
   })
   @CreateDateColumn({
-    type: 'timestamp',
+    type: 'datetime',
     comment: '생성일',
   })
   createdAt: Date;
@@ -39,7 +39,7 @@ export abstract class CommonEntity extends BaseEntity {
     description: '수정일',
     required: false,
   })
-  @UpdateDateColumn({ type: 'timestamp', comment: '수정일' })
+  @UpdateDateColumn({ type: 'datetime', comment: '수정일' })
   updatedAt: Date;
 
   @ApiProperty({
@@ -48,6 +48,6 @@ export abstract class CommonEntity extends BaseEntity {
     required: false,
   })
   @Exclude()
-  @DeleteDateColumn({ type: 'timestamp', comment: '삭제일' })
+  @DeleteDateColumn({ type: 'datetime', comment: '삭제일' })
   deletedAt?: Date | null;
 }
